@@ -44,15 +44,16 @@ class Participant(models.Model):
         return self.name
 
 class Location(models.Model):
-    venue = models.CharField(max_length=255, blank=True)
+    address = models.TextField(blank=True)
     city = models.CharField(max_length=100)
-    region = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.venue}, {self.city}, {self.country}" if self.venue else f"{self.city}, {self.country}"
+        return f"{self.address}, {self.city}, {self.country}" if self.address else f"{self.city}, {self.country}"
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)

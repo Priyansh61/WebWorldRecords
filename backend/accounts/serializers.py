@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import User, PartnerRequest
+
+from records.serializers import LocationSerializer
+from .models import User, PartnerRequest, UserProfile
 from django.contrib.auth.password_validation import validate_password
 
 class PartnerApprovalSerializer(serializers.ModelSerializer):
@@ -7,6 +9,13 @@ class PartnerApprovalSerializer(serializers.ModelSerializer):
         model = PartnerRequest
         fields = ['id', 'user', 'approved', 'approved_by', 'approved_at']
         read_only_fields = ['user', 'approved_by', 'approved_at']
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    address = LocationSerializer(many=True)
+    class Meta:
+        model = UserProfile
+        fields = ['phone_number', 'address', 'profile_picture']
 
 class UserSignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
