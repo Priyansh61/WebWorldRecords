@@ -1,16 +1,19 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, status
+from rest_framework.response import Response
+
 from .models import (
     RecordCategory, RecordDefinition, Record, Participant,
-    Location, Tag, Asset, RecordSource, VKey
+    Location, Tag, Asset,RecordSource, VKey
 )
 from .serializers import (
     RecordCategorySerializer, RecordDefinitionSerializer, RecordSerializer,
     ParticipantSerializer, LocationSerializer, TagSerializer,
-    AssetSerializer, RecordSourceSerializer, VKeySerializer
+    AssetSerializer, RecordSourceSerializer, VKeyBulkCreateSerializer, VKeySerializer
 )
+from accounts.permissions import IsModeratorOrSuper, IsAuthenticated
 
 class RecordCategoryViewSet(viewsets.ModelViewSet):
     queryset = RecordCategory.objects.all()
@@ -47,3 +50,15 @@ class RecordSourceViewSet(viewsets.ModelViewSet):
 class VKeyViewSet(viewsets.ModelViewSet):
     queryset = VKey.objects.all()
     serializer_class = VKeySerializer
+    permission_classes = [IsAuthenticated, IsModeratorOrSuper]
+
+class VKeyBulkCreateView(generics.CreateAPIView):
+    serializer_class = VKeyBulkCreateSerializer
+    permission_classes = [IsAuthenticated, IsModeratorOrSuper]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({"message": "VKeys generated successfully!"}, status=status.HTTP_201_CREATED)

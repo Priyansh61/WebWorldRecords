@@ -1,35 +1,33 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, PartnerRequest
-from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import PartnerRequest, User
+from django.utils.translation import gettext_lazy as _
 
 
-@admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = User
-
-    list_display = ['username', 'email', 'role', 'is_staff', 'is_active']
-    list_filter = ['role', 'is_staff', 'is_active']
+    # Define the fields to display in the admin interface
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password', 'role')}),
-        ('Permissions', {'fields': ('is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        (None, {'fields': ('email', 'password', 'role')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'role', 'password1', 'password2'),
+            'fields': ('email', 'password1', 'password2', 'role', 'is_active', 'is_staff', 'is_superuser'),
         }),
     )
-    search_fields = ['username', 'email']
-    ordering = ['username']
+    list_display = ('email', 'is_staff','id')
+    search_fields = ('email',)
+    ordering = ('email',)
+
+# Register the custom User model with the updated UserAdmin
+admin.site.register(User, UserAdmin)
 
 @admin.register(PartnerRequest)
 class PartnerRequestAdmin(admin.ModelAdmin):
     list_display = ('user', 'requested_at', 'approved', 'approved_by', 'approved_at')
     list_filter = ('approved', 'requested_at')
-    search_fields = ('user__username', 'user__email')
+    search_fields =('user__email',)
     autocomplete_fields = ['user']
     readonly_fields = ['requested_at', 'approved_at']

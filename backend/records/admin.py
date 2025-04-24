@@ -10,16 +10,12 @@ from .models import (
     Location,
     Tag,
     Asset,
-    RecordAsset,
-    RecordSource,
     VKey
 )
 
 # Basic model registrations
 admin.site.register(RecordCategory)
 admin.site.register(Asset)
-admin.site.register(RecordAsset)
-admin.site.register(RecordSource)
 admin.site.register(VKey)
 
 

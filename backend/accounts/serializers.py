@@ -1,7 +1,10 @@
+from django.contrib import admin
 from rest_framework import serializers
-
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from records.serializers import LocationSerializer
-from .models import User, PartnerRequest, UserProfile
+from .models import User, PartnerRequest
 from django.contrib.auth.password_validation import validate_password
 
 class PartnerApprovalSerializer(serializers.ModelSerializer):
@@ -11,19 +14,13 @@ class PartnerApprovalSerializer(serializers.ModelSerializer):
         read_only_fields = ['user', 'approved_by', 'approved_at']
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    address = LocationSerializer(many=True)
-    class Meta:
-        model = UserProfile
-        fields = ['phone_number', 'address', 'profile_picture']
-
 class UserSignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, validators=[validate_password])
     confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'role', 'password', 'confirm_password']
+        fields = ['id', 'email', 'role', 'password', 'confirm_password']
 
     def validate(self, data):
         if data['password'] != data['confirm_password']:
@@ -32,7 +29,6 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('confirm_password')
-        if 'role' not in validated_data:
-            validated_data['role'] = 'User'
+        validated_data['role'] = 'User'  # default role on signup
         user = User.objects.create_user(**validated_data)
         return user

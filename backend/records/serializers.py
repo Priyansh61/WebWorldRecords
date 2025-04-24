@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from accounts.models import User
 from .models import (
     RecordCategory,
     RecordDefinition,
@@ -7,7 +9,6 @@ from .models import (
     Location,
     Tag,
     Asset,
-    RecordAsset,
     RecordSource,
     VKey
 )
@@ -49,7 +50,25 @@ class RecordSourceSerializer(serializers.ModelSerializer):
         model = RecordSource
         fields = '__all__'
 
+class VKeyBulkCreateSerializer(serializers.Serializer):
+    assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='PartnerAdmin'))
+    number_of_keys = serializers.IntegerField(min_value=1)
+
+    def create(self, validated_data):
+        assigned_to = validated_data['assigned_to']
+        number_of_keys = validated_data['number_of_keys']
+        created_by = self.context['request'].user
+
+        vkeys = [
+            VKey(assigned_to=assigned_to, created_by=created_by)
+            for _ in range(number_of_keys)
+        ]
+        return VKey.objects.bulk_create(vkeys)
+
 class VKeySerializer(serializers.ModelSerializer):
+    assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='PartnerAdmin'))
+    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = VKey
         fields = '__all__'
@@ -61,7 +80,6 @@ class RecordSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True, read_only=True)
     assets = AssetSerializer(many=True, read_only=True)
     sources = RecordSourceSerializer(many=True, read_only=True)
-    vkey = VKeySerializer(read_only=True)
 
     class Meta:
         model = Record
@@ -81,7 +99,6 @@ class RecordSerializer(serializers.ModelSerializer):
             'tags',
             'assets',
             'sources',
-            'vkey',
             'created_at',
             'updated_at',
         ]

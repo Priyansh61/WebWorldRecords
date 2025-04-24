@@ -11,8 +11,8 @@ router.register('locations', LocationViewSet)
 router.register('tags', TagViewSet)
 router.register('assets', AssetViewSet)
 router.register('sources', RecordSourceViewSet)
-router.register('vkeys', VKeyViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('vkeys/create/', VKeyBulkCreateView.as_view(), name='vkey-create')
 ]

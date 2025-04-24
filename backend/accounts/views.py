@@ -6,9 +6,9 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import permissions
-from .models import User, PartnerRequest, UserProfile
+from .models import User, PartnerRequest
 from .permissions import IsModeratorOrSuper
-from .serializers import UserSignupSerializer, PartnerApprovalSerializer, UserProfileSerializer
+from .serializers import UserSignupSerializer, PartnerApprovalSerializer
 
 
 class PendingPartnerRequestsListView(generics.ListAPIView):
@@ -37,14 +37,6 @@ class ApprovePartnerRequestView(generics.UpdateAPIView):
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-class UserProfileRetrieveUpdateView(generics.RetrieveUpdateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user.profile
 
 class UserSignupView(generics.CreateAPIView):
     queryset = User.objects.all()
