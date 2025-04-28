@@ -11,14 +11,14 @@ export default function Home() {
         <div className="flex justify-end">
           <Button
             variant="icon"
-            className="py-4 px-5 gap-4 mt-6 mr-5 leading-normal"
+            className="py-4 px-5 gap-3 mt-6 mr-5 leading-normal flex items-center"
           >
-            <Icon icon="mage:light-bulb" className="size-8" />
+            <Icon icon="mage:light-bulb" className="size-7 -mt-1" />
             Inspirations
           </Button>
         </div>
         <div className="flex flex-col justify-center items-center gap-4 -mt-6">
-          <Image src={LOGO} alt="Logo" className="size-36" />
+          <Image src={LOGO} alt="Logo" className="size-32" />
           <div className="self-stretch text-center justify-start">
             <span className="text-sky-900 text-3xl font-black leading-loose tracking-wider">
               MAKE IT OR{" "}

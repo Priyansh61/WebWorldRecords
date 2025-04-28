@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col font-['Montserrat']">
           <div className="flex-grow">{children}</div>
           <Footer />
         </div>

@@ -20,8 +20,8 @@ export default function ResultCard({
   return (
     <div className="p-4 bg-white rounded-[32px] inline-flex flex-col justify-start items-start">
       <div className="relative flex flex-col justify-center items-start gap-4">
-        <div className="w-72 h-44 flex justify-center items-center">
-          <div className="px-2 py-1.5 left-2 top-2 absolute bg-neutral-900/50 rounded-lg backdrop-blur-2xl flex items-center">
+        <div className="flex justify-center items-center">
+          <div className="flex-1 px-2 py-1.5 left-2 top-2 absolute bg-neutral-900/50 rounded-lg backdrop-blur-2xl flex items-center">
             {tag && (
               <div className="text-white text-xs font-medium leading-none">
                 {tag}
@@ -29,13 +29,13 @@ export default function ResultCard({
             )}
           </div>
           <Image
-            className="object-cover w-72 h-44 rounded-xl"
+            className="object-cover w-64 h-40 rounded-xl"
             src={cardImage}
             alt="Push-up Record" //TODO: Add alt text
           />
         </div>
         <div className="flex flex-col justify-start items-start gap-4">
-          <div className="w-72 flex flex-col justify-start items-center gap-1">
+          <div className="w-64 flex flex-col justify-start items-center gap-1">
             <div className="self-stretch justify-start text-neutral-900 text-xl font-bold">
               {title}
             </div>

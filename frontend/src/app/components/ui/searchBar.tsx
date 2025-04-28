@@ -19,7 +19,7 @@ function SearchBar({
         className
       )}
     >
-      <div className="flex items-center flex-1">
+      <div className="flex items-center flex-1 w-full">
         <Image src={LOGO} width={40} height={40} alt="Logo" />
         <ReactTyped
           parseRef={(ref) => ref.current.input}
@@ -32,11 +32,12 @@ function SearchBar({
           typeSpeed={40}
           backSpeed={50}
           loop
+          className="w-full"
         >
           <input
             type={type}
             data-slot="input"
-            className="border-none shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 px-4 h-full text-zinc-800 text-xl font-medium leading-loose"
+            className="border-none shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 px-4 h-full text-zinc-800 text-xl font-medium leading-loose w-full"
             {...props}
           />
         </ReactTyped>
