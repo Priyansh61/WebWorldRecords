@@ -17,3 +17,4 @@ urlpatterns = [
     path('vkeys/create/', VKeyBulkCreateView.as_view(), name='vkey-create'),
     path('vkeys/', VKeyListView.as_view(), name='vkey-list'),
 ]
+

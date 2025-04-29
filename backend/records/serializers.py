@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from accounts.models import User
@@ -20,10 +21,56 @@ class RecordCategorySerializer(serializers.ModelSerializer):
 
 class RecordDefinitionSerializer(serializers.ModelSerializer):
     category = RecordCategorySerializer(read_only=True)
-
     class Meta:
         model = RecordDefinition
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'unit', 'higher_is_better', 'record_nature', 'category', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+
+class RecordDefinitionCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecordDefinition
+        fields = ['id', 'name', 'description', 'unit', 'higher_is_better', 'record_nature', 'category', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+class RecordSubmissionSerializer(serializers.ModelSerializer):
+    vkey = serializers.UUIDField(write_only=True)
+    class Meta :
+        model = Record
+        fields = ['id',
+                  'definition',
+                  'title',
+                  'record_date',
+                  'value',
+                  'details',
+                  'vkey',
+                  'created_at',
+                  'updated_at']
+        read_only_fields = ['id', 'created_at', 'updated_at']
+
+    def validate_vkey(self, value):
+        user = self.context['request'].user
+        try :
+            vkey = VKey.objects.get(key=value, assigned_to=user)
+        except VKey.DoesNotExist:
+            raise serializers.ValidationError("Invalid VKey.")
+        if vkey.used:
+            raise serializers.ValidationError("VKey has already been used.")
+        return vkey
+
+    def create(self, validated_data):
+        vkey = validated_data.pop('vkey')
+        user = self.context['request'].user
+
+        record = Record.objects.create(
+            submitted_by=user,
+            status = 'pending',
+            **validated_data
+        )
+
+        vkey.used = True
+        vkey.used_at = timezone.now()
+        return record
 
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:

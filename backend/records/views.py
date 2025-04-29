@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets, generics, status
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .models import (
@@ -11,21 +12,51 @@ from .models import (
 from .serializers import (
     RecordCategorySerializer, RecordDefinitionSerializer, RecordSerializer,
     ParticipantSerializer, LocationSerializer, TagSerializer,
-    AssetSerializer, RecordSourceSerializer, VKeyBulkCreateSerializer, VKeyListSerializer
+    AssetSerializer, RecordSourceSerializer, VKeyBulkCreateSerializer, VKeyListSerializer, RecordSubmissionSerializer,
+    RecordDefinitionCreateSerializer
 )
-from accounts.permissions import IsModeratorOrSuper, IsAuthenticated
+from accounts.permissions import IsModeratorOrSuper, IsAuthenticated, IsPartnerAdmin
+
 
 class RecordCategoryViewSet(viewsets.ModelViewSet):
     queryset = RecordCategory.objects.all()
     serializer_class = RecordCategorySerializer
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticated(), IsModeratorOrSuper()]
+        return [AllowAny()]
+
+    def create(self, request, *args, **kwargs):
+        category_name = request.data.get('name')
+        if RecordCategory.objects.filter(name=category_name).exists():
+            return Response({"error": "Category with this name already exists."}, status=status.HTTP_400_BAD_REQUEST)
+        return super().create(request, *args, **kwargs)
+
+
+
 class RecordDefinitionViewSet(viewsets.ModelViewSet):
     queryset = RecordDefinition.objects.all()
-    serializer_class = RecordDefinitionSerializer
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return RecordDefinitionCreateSerializer
+        return RecordDefinitionSerializer
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticated(), IsModeratorOrSuper()]
+        return [AllowAny()]
+
+class RecordSubmissionViewSet(generics.CreateAPIView):
+    queryset = Record.objects.all()
+    serializer_class = RecordSubmissionSerializer
+    permission_classes = [IsAuthenticated, IsPartnerAdmin]
 
 class RecordViewSet(viewsets.ModelViewSet):
     queryset = Record.objects.all()
     serializer_class = RecordSerializer
+
 
 class ParticipantViewSet(viewsets.ModelViewSet):
     queryset = Participant.objects.all()
