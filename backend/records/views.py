@@ -11,7 +11,7 @@ from .models import (
 from .serializers import (
     RecordCategorySerializer, RecordDefinitionSerializer, RecordSerializer,
     ParticipantSerializer, LocationSerializer, TagSerializer,
-    AssetSerializer, RecordSourceSerializer, VKeyBulkCreateSerializer, VKeySerializer
+    AssetSerializer, RecordSourceSerializer, VKeyBulkCreateSerializer, VKeyListSerializer
 )
 from accounts.permissions import IsModeratorOrSuper, IsAuthenticated
 
@@ -47,11 +47,6 @@ class RecordSourceViewSet(viewsets.ModelViewSet):
     queryset = RecordSource.objects.all()
     serializer_class = RecordSourceSerializer
 
-class VKeyViewSet(viewsets.ModelViewSet):
-    queryset = VKey.objects.all()
-    serializer_class = VKeySerializer
-    permission_classes = [IsAuthenticated, IsModeratorOrSuper]
-
 class VKeyBulkCreateView(generics.CreateAPIView):
     serializer_class = VKeyBulkCreateSerializer
     permission_classes = [IsAuthenticated, IsModeratorOrSuper]
@@ -62,3 +57,25 @@ class VKeyBulkCreateView(generics.CreateAPIView):
         serializer.save()
 
         return Response({"message": "VKeys generated successfully!"}, status=status.HTTP_201_CREATED)
+
+class VKeyListView(generics.ListAPIView):
+    serializer_class = VKeyListSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.role in ['ModeratorAdmin', 'SuperAdmin']:
+            # Moderator / SuperAdmin → Can see all, filter by partner if query param provided
+            assigned_to = self.request.query_params.get('assigned_to')
+            queryset = VKey.objects.all()
+            if assigned_to:
+                queryset = queryset.filter(assigned_to_id=assigned_to)
+            return queryset.order_by('-created_at')
+
+        elif user.role == 'PartnerAdmin':
+            # PartnerAdmin → Can only see their own VKeys
+            return VKey.objects.filter(assigned_to=user).order_by('-created_at')
+
+        # Others get nothing
+        return VKey.objects.none()

@@ -14,5 +14,6 @@ router.register('sources', RecordSourceViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('vkeys/create/', VKeyBulkCreateView.as_view(), name='vkey-create')
+    path('vkeys/create/', VKeyBulkCreateView.as_view(), name='vkey-create'),
+    path('vkeys/', VKeyListView.as_view(), name='vkey-list'),
 ]

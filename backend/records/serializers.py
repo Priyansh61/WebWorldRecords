@@ -51,8 +51,14 @@ class RecordSourceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VKeyBulkCreateSerializer(serializers.Serializer):
-    assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='PartnerAdmin'))
+    assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects)
     number_of_keys = serializers.IntegerField(min_value=1)
+
+    @staticmethod
+    def validate_assigned_to(value):
+        if value.role != 'PartnerAdmin':
+            raise serializers.ValidationError("The assigned user must have the role 'PartnerAdmin'.")
+        return value
 
     def create(self, validated_data):
         assigned_to = validated_data['assigned_to']
@@ -65,13 +71,21 @@ class VKeyBulkCreateSerializer(serializers.Serializer):
         ]
         return VKey.objects.bulk_create(vkeys)
 
-class VKeySerializer(serializers.ModelSerializer):
-    assigned_to = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='PartnerAdmin'))
-    created_by = serializers.PrimaryKeyRelatedField(read_only=True)
+
+class VKeyListSerializer(serializers.ModelSerializer):
+    assigned_to_email = serializers.EmailField(source='assigned_to.email', read_only=True)
+    created_by_email = serializers.EmailField(source='created_by.email', read_only=True)
 
     class Meta:
         model = VKey
-        fields = '__all__'
+        fields = ['key',
+                  'assigned_to',
+                  'assigned_to_email',
+                  'created_by',
+                  'created_by_email',
+                   'used',
+                  'used_at',
+                  'created_at']
 
 class RecordSerializer(serializers.ModelSerializer):
     definition = RecordDefinitionSerializer(read_only=True)
