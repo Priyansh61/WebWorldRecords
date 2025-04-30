@@ -10,6 +10,7 @@ from .models import User, PartnerRequest
 from .permissions import IsModeratorOrSuper
 from .serializers import UserSignupSerializer, PartnerApprovalSerializer
 
+
 class PendingPartnerRequestsListView(generics.ListAPIView):
     queryset = PartnerRequest.objects.filter(approved=False)
     serializer_class = PartnerApprovalSerializer
