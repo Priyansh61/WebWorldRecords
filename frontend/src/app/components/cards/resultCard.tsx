@@ -39,10 +39,10 @@ export default function ResultCard({
             <div className="self-stretch justify-start text-neutral-900 text-xl font-bold">
               {title}
             </div>
-            <div className="self-stretch inline-flex justify-start items-center gap-3 flex-wrap content-center items-center">
-              <div className="justify-start">
+            <div className="self-stretch inline-flex mt-1 justify-start items-center gap-3 flex-wrap content-center">
+              <div className="flex items-center gap-1">
                 <span className="text-zinc-800 text-sm font-medium leading-tight">
-                  by{" "}
+                  by
                 </span>
                 <span className="text-sky-900 text-sm font-medium leading-tight">
                   {recordHolder}
