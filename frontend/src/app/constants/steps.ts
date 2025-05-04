@@ -32,3 +32,20 @@ export const MakeRecordSteps = [
     description: "Fill a simple form (like ordering groceries).",
   },
 ];
+
+export const HowItWorksSteps = [
+  {
+    title: "Share Your Achievement",
+    description: "Submit your record-breaking accomplishment",
+  },
+  {
+    title: "Verification Process",
+    description:
+      "Our team will review and verify the uniqueness of your achievement",
+  },
+  {
+    title: "Get Certified",
+    description:
+      "Once approved, receive your official World Record Certificate and claim your place in history.",
+  },
+];
