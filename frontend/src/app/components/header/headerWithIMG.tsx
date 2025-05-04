@@ -9,7 +9,7 @@ export default function HeaderWithIMG({
   backgroundImage = "../assets/images/hand-shake.webp",
 }: {
   title: string;
-  buttonText: string;
+  buttonText?: string;
   backgroundImage: string;
 }) {
   return (
@@ -29,7 +29,7 @@ export default function HeaderWithIMG({
         </div>
 
         <div className="flex justify-end">
-          <Button className="px-12 py-3">{buttonText}</Button>
+          {buttonText && <Button className="px-12 py-3">{buttonText}</Button>}
         </div>
       </div>
     </div>
