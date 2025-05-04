@@ -24,12 +24,12 @@ export default function HeaderWithIMG({
         <div className="flex flex-col gap-6 items-center justify-center">
           <Image src={Logo} alt="logo" className="size-20" />
           <span className="text-center justify-start text-white text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
-            Become our Partner
+            {title}
           </span>
         </div>
 
         <div className="flex justify-end">
-          <Button className="px-12 py-3">Become a Partner</Button>
+          <Button className="px-12 py-3">{buttonText}</Button>
         </div>
       </div>
     </div>

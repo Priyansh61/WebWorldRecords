@@ -39,19 +39,19 @@ export default function BecomePartner() {
   };
 
   return (
-    <div className="pb-12 flex flex-col gap-20">
-      <HeaderWithIMG />
-      <div className="flex flex-col -mt-10">
+    <div className="pb-12 flex flex-col gap-28">
+      <HeaderWithIMG title="Become our Partner" buttonText="Become a Partner" />
+      <div className="flex flex-col -mt-20 gap-3">
         <div className="text-center justify-start">
-          <span className="text-rose-600 text-2xl font-black font-['Montserrat'] leading-loose tracking-wider">
+          <span className="text-rose-600 text-3xl font-black font-['Montserrat'] tracking-wider">
             Partnerships
           </span>
-          <span className="text-sky-900 text-2xl font-black font-['Montserrat'] leading-loose tracking-wider">
+          <span className="text-sky-900 text-3xl font-black font-['Montserrat'] tracking-wider">
             {" "}
             Built to Break Boundaries
           </span>
         </div>
-        <div className="text-center justify-start text-neutral-500 text-sm font-medium font-['Montserrat'] leading-normal tracking-wide">
+        <div className="text-center justify-start text-neutral-500 text-base font-medium font-['Montserrat'] tracking-wide">
           Unlock tools, training, and global recognition to position your
           business as a leader in record-breaking innovation
         </div>
@@ -71,17 +71,17 @@ export default function BecomePartner() {
 
       <div className="flex flex-col bg-neutral-50 py-10 px-20 gap-12">
         <div className="text-center justify-start">
-          <span className="text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             Why
           </span>
-          <span className="text-rose-600 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-rose-600 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             {" "}
             Join?
           </span>
         </div>
 
         <div className="flex gap-20 items-center justify-center">
-          <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="flex flex-col gap-2 justify-center items-center max-w-72">
             <Image
               src={AuthorityIMG}
               alt="Local Authority"
@@ -89,42 +89,42 @@ export default function BecomePartner() {
             />
             <div className="flex flex-col justify-center">
               <div className="px-6 py-1 inline-flex justify-center">
-                <div className="text-center text-sky-900 text-2xl font-bold font-['Montserrat'] leading-loose tracking-wider">
+                <div className="text-center text-sky-900 text-3xl font-bold font-['Montserrat'] leading-loose tracking-wider">
                   Local Authority
                 </div>
               </div>
 
-              <div className="text-center text-zinc-800 text-sm font-medium font-['Montserrat'] leading-normal tracking-wide">
+              <div className="text-center text-zinc-800 text-base font-medium font-['Montserrat'] leading-normal tracking-wide">
                 Be the go-to expert for record-breaking in your region.
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="flex flex-col gap-2 justify-center items-center max-w-80">
             <Image src={BadgeIMG} alt="Local Authority" className="size-16" />
             <div className="flex flex-col justify-center">
               <div className="px-6 py-1 inline-flex justify-center">
-                <div className="text-center text-sky-900 text-2xl font-bold font-['Montserrat'] leading-loose tracking-wider">
+                <div className="text-center text-sky-900 text-3xl font-bold font-['Montserrat'] leading-loose tracking-wider">
                   Exclusive Rewards
                 </div>
               </div>
 
-              <div className="text-center text-zinc-800 text-sm font-medium font-['Montserrat'] leading-normal tracking-wide">
+              <div className="text-center text-zinc-800 text-base font-medium font-['Montserrat'] leading-normal tracking-wide">
                 Earn commissions (up to 25%) and performance bonuses. 
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="flex flex-col gap-2 justify-center items-center max-w-72">
             <Image src={GlobeIMG} alt="Local Authority" className="size-16" />
             <div className="flex flex-col justify-center">
               <div className="px-6 py-1 inline-flex justify-center">
-                <div className="text-center text-sky-900 text-2xl font-bold font-['Montserrat'] leading-loose tracking-wider">
+                <div className="text-center text-sky-900 text-3xl font-bold font-['Montserrat'] leading-loose tracking-wider">
                   Global Impact
                 </div>
               </div>
 
-              <div className="text-center text-zinc-800 text-sm font-medium font-['Montserrat'] leading-normal tracking-wide">
+              <div className="text-center text-zinc-800 text-base font-medium font-['Montserrat'] leading-normal tracking-wide">
                 Amplify client success with cutting-edge tools and 24/7 support.
               </div>
             </div>
@@ -134,10 +134,10 @@ export default function BecomePartner() {
 
       <div className="flex flex-col gap-12">
         <div className="text-center justify-start">
-          <span className="text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             Your{" "}
           </span>
-          <span className="text-rose-600 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-rose-600 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             Benefits
           </span>
         </div>
@@ -159,10 +159,10 @@ export default function BecomePartner() {
                     <div className="flex gap-3" key={pointIndex}>
                       <Icon icon="typcn:tick" className="size-5" />
                       <div className="flex flex-col gap-1">
-                        <span className="text-rose-600 text-sm font-bold font-['Montserrat'] leading-normal tracking-wide">
+                        <span className="text-rose-600 text-base font-bold font-['Montserrat'] leading-normal tracking-wide">
                           {point.title}
                         </span>
-                        <span className="self-stretch text-neutral-500 text-sm font-medium font-['Montserrat'] leading-normal tracking-wide">
+                        <span className="self-stretch text-neutral-500 text-base font-medium font-['Montserrat'] leading-normal tracking-wide">
                           {point.description}
                         </span>
                       </div>
@@ -180,10 +180,10 @@ export default function BecomePartner() {
 
       <div className="flex flex-col gap-12">
         <div className="text-center justify-start">
-          <span className="text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             What partners{" "}
           </span>
-          <span className="text-rose-600 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-rose-600 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             say
           </span>
         </div>
@@ -254,14 +254,14 @@ export default function BecomePartner() {
 
       <div className="flex flex-col gap-12">
         <div className="text-center justify-start">
-          <span className="text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             How to{" "}
           </span>
-          <span className="text-rose-600 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-rose-600 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             Join
           </span>
         </div>
-        <ProcessSteps steps={BecomePartnerSteps} />
+        <ProcessSteps steps={BecomePartnerSteps} className="w-6xl mx-auto" />
         <div className="flex gap-8 items-center justify-center">
           <Button className="w-sm">Become A Partner</Button>
           <Button variant="tertiary" className="w-sm">
@@ -272,10 +272,10 @@ export default function BecomePartner() {
 
       <div className="flex flex-col gap-12">
         <div className="text-center justify-start">
-          <span className="text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             The value of your{" "}
           </span>
-          <span className="text-rose-600 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+          <span className="text-rose-600 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
             Partner Badge
           </span>
         </div>
@@ -290,7 +290,7 @@ export default function BecomePartner() {
       </div>
 
       <div className="flex flex-col gap-12 px-96">
-        <span className="self-stretch text-center justify-start text-zinc-800 text-4xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
+        <span className="self-stretch text-center justify-start text-zinc-800 text-5xl font-black font-['Montserrat'] leading-[48px] tracking-widest">
           FAQs
         </span>
         <FAQsDetails FAQsData={FAQsData} />

@@ -5,9 +5,11 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
+import LeftArrowIcon from "@/assets/icons/left-solid-icon.svg";
+import RightArrowIcon from "@/assets/icons/right-solid-icon.svg";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -120,7 +122,7 @@ function Carousel({
     >
       <div
         onKeyDownCapture={handleKeyDown}
-        className={cn("relative", className)}
+        className={cn("overflow-hidden relative", className)}
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
@@ -185,9 +187,9 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
+          ? "top-1/2 -left-8 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -195,7 +197,11 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      <Image
+        src={LeftArrowIcon}
+        alt="left arrow"
+        className="absolute right-2 size-5"
+      />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -215,9 +221,9 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
+          ? "top-1/2 -right-8 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -225,7 +231,11 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      <Image
+        className="absolute left-2 size-5"
+        src={RightArrowIcon}
+        alt="right arrow"
+      />
       <span className="sr-only">Next slide</span>
     </Button>
   );
