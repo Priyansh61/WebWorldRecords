@@ -110,17 +110,11 @@ export function DashboardLayout({
             </div>
           </aside>
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetContent side="left" className="w-64 p-0">
+            <SheetContent side="left" className="w-64 bg-white p-0">
               <div className="flex h-full flex-col gap-2 p-4">
                 <div className="flex items-center justify-between py-2">
-                  <h2
-                      className="px-4 text-lg font-semibold tracking-tight"
-                      style={{ color: WR_THEME.colors.navy, fontFamily: WR_THEME.fontFamily.heading }}
-                  >
-                    Partner Admin
-                  </h2>
-                  <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
-                    <X className="h-5 w-5" />
+                  <h2 className="px-4 text-lg font-semibold tracking-tight text-wr-navy">Partner Admin</h2>
+                  <Button variant="ghost" className="" size="icon" onClick={() => setOpen(false)}>
                     <span className="sr-only">Close menu</span>
                   </Button>
                 </div>
@@ -129,17 +123,10 @@ export function DashboardLayout({
                 </div>
                 <div className="rounded-lg p-4" style={{ backgroundColor: `${WR_THEME.colors.navy}10` }}>
                   <div className="flex items-center gap-2">
-                    <Award className="h-5 w-5" style={{ color: WR_THEME.colors.navy }} />
-                    <h3
-                        className="font-medium"
-                        style={{ color: WR_THEME.colors.navy, fontFamily: WR_THEME.fontFamily.heading }}
-                    >
-                      Partner Status
-                    </h3>
+                    <Award className="h-5 w-5 text-wr-navy" />
+                    <h3 className="font-medium text-wr-navy">Partner Status</h3>
                   </div>
-                  <p className="mt-2 text-sm text-muted-foreground" style={{ fontFamily: WR_THEME.fontFamily.sans }}>
-                    Verified Partner since Jan 2023
-                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground">Verified Partner since Jan 2023</p>
                 </div>
               </div>
             </SheetContent>
