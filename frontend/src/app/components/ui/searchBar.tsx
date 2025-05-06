@@ -15,12 +15,12 @@ function SearchBar({
   return (
     <div
       className={cn(
-        "relative flex items-center bg-white rounded-4xl px-8 py-4",
+        "relative flex items-center bg-white md:rounded-4xl rounded-2xl md:px-8 md:py-4 px-4 py-2",
         className
       )}
     >
       <div className="flex items-center flex-1 w-full">
-        <Image src={LOGO} width={40} height={40} alt="Logo" />
+        <Image src={LOGO} alt="Logo" className="md:size-10 size-6" />
         <ReactTyped
           parseRef={(ref) => ref.current.input}
           attr="placeholder"
@@ -37,25 +37,25 @@ function SearchBar({
           <input
             type={type}
             data-slot="input"
-            className="border-none shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 px-4 h-full text-zinc-800 text-xl font-medium leading-loose w-full"
+            className="border-none shadow-none outline-none focus-visible:ring-0 focus-visible:ring-offset-0 px-4 h-full text-zinc-800 md:text-xl text-sm font-medium leading-loose w-full"
             {...props}
           />
         </ReactTyped>
       </div>
       <div className="flex items-center">
-        <div className="px-3">
+        <div className="md:px-3 px-1">
           <button className="cursor-pointer flex items-center">
             <Icon
               icon="material-symbols:mic"
-              className="text-sky-900 size-9 cursor-pointer"
+              className="text-sky-900 md:size-9 size-6 cursor-pointer"
             />
           </button>
         </div>
-        <div className="px-3">
+        <div className="md:px-3 px-1">
           <button className="cursor-pointer flex items-center">
             <Icon
               icon="material-symbols:search-rounded"
-              className="text-rose-600 size-9 cursor-pointer"
+              className="text-rose-600 md:size-9 size-6 cursor-pointer"
             />
           </button>
         </div>
