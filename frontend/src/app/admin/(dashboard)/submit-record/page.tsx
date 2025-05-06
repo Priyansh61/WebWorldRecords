@@ -186,7 +186,7 @@ export default function SubmitRecordPage() {
                     <FormItem>
                       <FormLabel className={styles.formLabel}>Record Value</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g. 9.58 seconds" {...field} />
+                        <Input label='' placeholder="e.g. 9.58 seconds" {...field} />
                       </FormControl>
                       <FormDescription>Enter the numeric value with units if applicable</FormDescription>
                       <FormMessage />
@@ -220,7 +220,7 @@ export default function SubmitRecordPage() {
                   <FormItem>
                     <FormLabel className={styles.formLabel}>VKey</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your verification key" {...field} />
+                      <Input label='' placeholder="Enter your verification key" {...field} />
                     </FormControl>
                     <FormDescription>Enter the verification key assigned to you</FormDescription>
                     <FormMessage />
