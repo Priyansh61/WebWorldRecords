@@ -35,7 +35,7 @@ export default function Home() {
       </div>
       <div className="w-full md:h-96 px-7 h-72 mt-14 bg-[url('../assets/home/home_search_background.webp')] bg-cover bg-center flex justify-center items-center">
         <div className="flex flex-col md:gap-8 gap-4 justify-center items-center w-full">
-          <SearchBar className="md:w-[54rem] w-full" />
+          <SearchBar className="lg:w-[54rem] w-full" />
           <div className="flex justify-center items-center md:gap-4 gap-2">
             <Button variant="secondary" className="md:px-16">
               Trending

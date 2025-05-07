@@ -9,7 +9,7 @@ import Header from "@/components/header";
 
 export default function ResultDetail() {
   return (
-    <div className="pt-9 pb-12 flex flex-col gap-12">
+    <div className="pb-12 flex flex-col gap-12">
       <Header />
       <div className="flex justify-center text-neutral-900 text-3xl font-bold font-['Montserrat'] leading-[60px] tracking-wider">
         Maximum one hand push-ups done in one minute{" "}
@@ -270,7 +270,7 @@ export default function ResultDetail() {
       </div>
 
       <div className="flex flex-col gap-12 px-30">
-        <div className="h-0 outline outline-1 outline-offset-[-0.50px] outline-gray-200" />
+        <div className="h-0 outline-1 outline-offset-[-0.50px] outline-gray-200" />
 
         <div className="flex flex-wrap gap-12 items-center">
           {Array(3)
