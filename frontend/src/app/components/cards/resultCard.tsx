@@ -29,13 +29,13 @@ export default function ResultCard({
             )}
           </div>
           <Image
-            className="object-cover w-64 h-40 rounded-xl"
+            className="object-cover md:w-64 w-72 md:h-40 h-48 rounded-xl"
             src={cardImage}
             alt="Push-up Record" //TODO: Add alt text
           />
         </div>
-        <div className="flex flex-col justify-start items-start gap-4">
-          <div className="w-64 flex flex-col justify-start items-center gap-1">
+        <div className="flex flex-col justify-start items-start gap-4 md:w-64 w-72">
+          <div className="flex flex-col justify-start items-center gap-1">
             <div className="self-stretch justify-start text-neutral-900 text-xl font-bold">
               {title}
             </div>
