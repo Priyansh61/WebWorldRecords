@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function RecordSaved() {
   return (
-    <div className="pt-9 pb-11 flex flex-col gap-12 w-full">
+    <div className="pb-11 flex flex-col gap-12 w-full">
       <Header />
 
       <div className="px-30 w-full flex flex-col justify-center items-center gap-10">

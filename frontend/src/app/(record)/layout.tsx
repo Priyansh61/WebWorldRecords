@@ -28,10 +28,10 @@ export default function RecordLayout({
   };
 
   return (
-    <div className="pt-9 pb-12 flex flex-col gap-12">
+    <div className="pb-12 flex flex-col gap-12">
       <Header />
 
-      <div className="px-30">
+      <div className="md:px-30">
         <Tabs value={tab} onValueChange={handleTabChange}>
           <div className="w-full flex justify-center">
             <TabsList>

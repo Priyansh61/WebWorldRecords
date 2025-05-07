@@ -17,14 +17,14 @@ function Input({ className, label, type, labelIcon, ...props }: InputProps) {
             {labelIcon}
           </div>
         )}
-        <label className="p-1 text-sky-900 text-base font-extrabold leading-normal tracking-wide">
+        <label className="p-1 text-sky-900 md:text-base text-sm font-extrabold leading-normal tracking-wide">
           {label}
         </label>
       </div>
       {type === "phoneNumber" ? (
         <div className="flex gap-2 items-center w-full">
           <div className="px-4 py-2 bg-neutral-50 rounded-4xl outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-2.5">
-            <span className="justify-start text-neutral-500 text-base font-normal font-['Montserrat'] leading-normal tracking-wide">
+            <span className="justify-start text-neutral-500 md:text-base text-sm font-normal font-['Montserrat'] leading-normal tracking-wide">
               +91
             </span>
           </div>
@@ -32,7 +32,7 @@ function Input({ className, label, type, labelIcon, ...props }: InputProps) {
             type="number"
             data-slot="input"
             className={cn(
-              "self-stretch w-full px-4 py-2 bg-neutral-50 rounded-4xl outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-2.5 placeholder:text-neutral-500 placeholder:text-base placeholder:font-normal text-zinc-800 text-base font-medium leading-normal tracking-wide [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+              "self-stretch w-full px-4 py-2 bg-neutral-50 rounded-4xl outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-2.5 placeholder:text-neutral-500 md:placeholder:text-base placeholder:text-sm placeholder:font-normal text-zinc-800 md:text-base text-sm font-medium leading-normal tracking-wide [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
               className
             )}
             {...props}
@@ -43,7 +43,7 @@ function Input({ className, label, type, labelIcon, ...props }: InputProps) {
           type={type}
           data-slot="input"
           className={cn(
-            "self-stretch px-4 py-2 bg-neutral-50 rounded-[32px] outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-2.5 placeholder:text-neutral-500 placeholder:text-base placeholder:font-normal text-zinc-800 text-base font-medium leading-normal tracking-wide",
+            "self-stretch px-4 py-2 bg-neutral-50 rounded-[32px] outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-start items-center gap-2.5 placeholder:text-neutral-500 md:placeholder:text-base placeholder:text-sm placeholder:font-normal text-zinc-800 md:text-base text-sm font-medium leading-normal tracking-wide",
             className
           )}
           {...props}
