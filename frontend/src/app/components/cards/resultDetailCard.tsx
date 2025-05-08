@@ -27,7 +27,7 @@ export default function ResultDetailCard({
         </div>
         <div className="self-stretch flex flex-col justify-start items-start gap-2">
           {tag && (
-            <div className="px-2 py-1 bg-sky-900 rounded-lg outline outline-2 outline-offset-[-2px] outline-sky-900 inline-flex justify-end items-center gap-2.5">
+            <div className="px-2 py-1 bg-sky-900 rounded-lg outline-2 outline-offset-[-2px] outline-sky-900 inline-flex justify-end items-center gap-2.5">
               <span className="text-right justify-start text-white text-xs font-bold font-['Montserrat'] leading-none">
                 {tag}
               </span>
