@@ -1,9 +1,6 @@
-
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -20,6 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { recordsApi } from "@/services/api"
 
 import {
     AlertDialog,
@@ -54,9 +52,16 @@ const formSchema = z.object({
     evidence: z.any().optional(),
 })
 
+interface RecordDefinition {
+    id: string;
+    name: string;
+}
+
 export function SubmitRecordForm() {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [recordDefinitions, setRecordDefinitions] = useState<RecordDefinition[]>([])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -67,17 +72,40 @@ export function SubmitRecordForm() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        setIsConfirmOpen(true)
-    }
+    // Load record definitions when component mounts
+    useEffect(() => {
+        const loadRecordDefinitions = async () => {
+            try {
+                const definitions = await recordsApi.getRecordDefinitions();
+                setRecordDefinitions(definitions as RecordDefinition[]);
+            } catch (error) {
+                toast.error("Failed to load record definitions");
+                console.error("Error loading record definitions:", error);
+            }
+        };
+        loadRecordDefinitions();
+    }, []);
 
-    function handleConfirm() {
-        toast("Record submitted successfully!", {
-            description: "Your record attempt has been submitted for review.",
-        })
-        setIsConfirmOpen(false)
-        form.reset()
-        setSelectedFile(null)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitting(true);
+        try {
+            await recordsApi.submitRecord({
+                ...values,
+                evidence: selectedFile || undefined,
+            });
+            toast.success("Record submitted successfully!", {
+                description: "Your record attempt has been submitted for review.",
+            });
+            form.reset();
+            setSelectedFile(null);
+        } catch (error: any) {
+            toast.error("Failed to submit record", {
+                description: error.response?.data?.message || "Please try again later.",
+            });
+        } finally {
+            setIsSubmitting(false);
+            setIsConfirmOpen(false);
+        }
     }
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -95,7 +123,7 @@ export function SubmitRecordForm() {
                 </CardHeader>
                 <CardContent>
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        <form onSubmit={form.handleSubmit(() => setIsConfirmOpen(true))} className="space-y-6">
                             <div className="grid gap-6 md:grid-cols-2">
                                 <FormField
                                     control={form.control}
@@ -124,13 +152,11 @@ export function SubmitRecordForm() {
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    <SelectItem value="most-pushups">Most push-ups in one minute</SelectItem>
-                                                    <SelectItem value="fastest-marathon">Fastest marathon</SelectItem>
-                                                    <SelectItem value="longest-plank">Longest plank hold</SelectItem>
-                                                    <SelectItem value="most-basketball-throws">
-                                                        Most basketball free throws in one minute
-                                                    </SelectItem>
-                                                    <SelectItem value="tallest-stack">Tallest stack of objects</SelectItem>
+                                                    {recordDefinitions.map((def) => (
+                                                        <SelectItem key={def.id} value={def.id}>
+                                                            {def.name}
+                                                        </SelectItem>
+                                                    ))}
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage />
@@ -266,9 +292,11 @@ export function SubmitRecordForm() {
                                 )}
                             />
 
-                            <Button type="submit" className="bg-[#d32f2f] hover:bg-[#b71c1c]">
-                                Submit Record
-                            </Button>
+                            <div className="flex justify-end space-x-4">
+                                <Button type="submit" disabled={isSubmitting}>
+                                    {isSubmitting ? "Submitting..." : "Submit Record"}
+                                </Button>
+                            </div>
                         </form>
                     </Form>
                 </CardContent>
@@ -279,13 +307,16 @@ export function SubmitRecordForm() {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Confirm Record Submission</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to submit this record? Once submitted, you cannot edit the information.
+                            Are you sure you want to submit this record? Please verify all information is correct.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleConfirm} className="bg-[#d32f2f] hover:bg-[#b71c1c]">
-                            Submit
+                        <AlertDialogCancel disabled={isSubmitting}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            disabled={isSubmitting}
+                            onClick={() => form.handleSubmit(onSubmit)()}
+                        >
+                            {isSubmitting ? "Submitting..." : "Confirm"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
