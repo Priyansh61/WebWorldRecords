@@ -7,7 +7,7 @@ export default function Header() {
     <div className="inline-flex flex-col justify-start items-center gap-5 w-full md:px-12 px-4 pt-9">
       <div className="flex justify-between items-center gap-8 w-full">
         <div className="md:p-3 p-2.5 bg-neutral-50 rounded-3xl inline-flex justify-start items-center">
-          <Image src={LeftIcon} alt="left icon" className="size-5 shrink-0" />
+          <Image src={LeftIcon} alt="left icon" className="md:size-5 size-4 shrink-0" />
         </div>
         <div className="flex md:gap-6 gap-3 items-center">
           <Image src={Logo} alt="logo" className="md:size-14 size-12" />

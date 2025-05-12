@@ -187,7 +187,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
+        "absolute md:flex hidden size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
         orientation === "horizontal"
           ? "top-1/2 -left-8 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -221,7 +221,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
+        "absolute md:flex hidden size-16 rounded-full bg-sky-900 disabled:bg-sky-900",
         orientation === "horizontal"
           ? "top-1/2 -right-8 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -241,6 +241,63 @@ function CarouselNext({
   );
 }
 
+function CarouselDots({ className, ...props }: React.ComponentProps<"div">) {
+  const { api, scrollPrev, scrollNext } = useCarousel();
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
+
+  const onDotButtonClick = React.useCallback(
+    (index: number) => {
+      if (!api) return;
+      api.scrollTo(index);
+    },
+    [api]
+  );
+
+  const onInit = React.useCallback((api: CarouselApi) => {
+    if (!api) return;
+    setScrollSnaps(api.scrollSnapList());
+  }, []);
+
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api) return;
+    setSelectedIndex(api.selectedScrollSnap());
+  }, []);
+
+  React.useEffect(() => {
+    if (!api) return;
+    onInit(api);
+    onSelect(api);
+    api.on("reInit", onInit);
+    api.on("reInit", onSelect);
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api, onInit, onSelect]);
+
+  return (
+    <div
+      className={cn("flex justify-center mt-5 items-center space-x-2", className)}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => onDotButtonClick(index)}
+          className={cn(
+            "rounded-full cursor-pointer transition-all duration-400",
+            selectedIndex === index
+              ? "bg-rose-600 h-2 w-5"
+              : "bg-gray-200 size-2"
+          )}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 export {
   type CarouselApi,
   Carousel,
@@ -248,4 +305,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDots,
 };
