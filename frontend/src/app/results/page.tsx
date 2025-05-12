@@ -87,7 +87,7 @@ export default function Results() {
           <div className="flex items-center gap-8 justify-between">
             <div className="flex md:gap-8 gap-5 items-center">
               <div className="md:p-3 p-2.5 bg-neutral-50 rounded-3xl inline-flex justify-start items-center">
-                <Image src={LeftIcon} alt="left icon" className="size-5" />
+                <Image src={LeftIcon} alt="left icon" className="md:size-5 size-4" />
               </div>
               <div className="flex md:gap-4 gap-2.5 items-center">
                 <Tags text="All (3)" active={true} />

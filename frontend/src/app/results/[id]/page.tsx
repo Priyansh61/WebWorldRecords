@@ -280,7 +280,7 @@ export default function ResultDetail() {
         </span>
         <div className="flex flex-row md:flex-wrap gap-3 max-md:overflow-x-auto w-full scrollbar-hide">
           {[...Array(10)].map((_, index) => (
-            <div key={index} className="w-full">
+            <div key={index}>
               <ResultDetailCard
                 imageUrl={PushUpIMG}
                 recordHolder="Kunal Dogra"
